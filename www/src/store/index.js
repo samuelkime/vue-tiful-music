@@ -17,7 +17,7 @@ export default new vuex.Store({
     state: {
         songs: [
             {
-                userName: "",
+                title: "",
                 albumArt: "",
                 artist: "",
                 collection: "",

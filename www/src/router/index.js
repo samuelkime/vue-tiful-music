@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import MusicSearch from '@/components/MusicSearch'
+//import MusicSearch from '@/components/MusicSearch'
 import PlayList from '@/components/PlayList'
 
 Vue.use(Router)
@@ -13,11 +13,11 @@ export default new Router({
       name: 'Home',
       component: Home
     },
-    {
-      path: '/MusicSearch/:id',
-      name: 'MusicSearch',
-      component: MusicSearch
-    },
+    // {
+    //   path: '/MusicSearch/:id',
+    //   name: 'MusicSearch',
+    //   component: MusicSearch
+    // },
     {
       path: '/PlayList/:id',
       name: 'PlayList',
