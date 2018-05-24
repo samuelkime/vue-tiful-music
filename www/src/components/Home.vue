@@ -5,9 +5,9 @@
     <button @click="getSongs">Search the Songs</button>
 
     <h4>Search Reasults</h4>
-    <div v-for="(song, index) in playlist" :key="song.id">
-      <router-link :to="{ name: 'PlayList', params: { id: index }}">{{song.title}} {{song.artist}}</router-link>    
-      
+    <div v-for="(song, index) in songs" :key="song._id">
+      <router-link :to="{ name: 'Home', params: { id: index }}">{{song.artistName}}:{{song.trackName}} <img :src="song.artworkUrl100"></router-link>    
+      <button @click="addToPlayList(song)"></button>
     </div>
   </div>
 </template>
@@ -23,13 +23,20 @@ export default {
   computed: {
     playList(){
       return this.$store.state.playlist
+    },
+    songs(){
+      return this.$store.state.songs
     }
   },
   methods: {
     getSongs(){
       this.$store.dispatch("getSongs", this.query)
-    }
+    },
+    addToPlayList(song){
+
+   }
   }
+
 }
 </script>
 

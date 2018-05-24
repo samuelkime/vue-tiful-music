@@ -15,17 +15,8 @@ vue.use(vuex)
 //above is standard
 export default new vuex.Store({
     state: {
-        songs: [
-            {
-                title: "",
-                albumArt: "",
-                artist: "",
-                collection: "",
-                price: 0,
-                preview: "",
-            }
-        ],
-//        user: {},
+        songs: [],
+//      user: {},
         playlist: [],
     },
 
@@ -42,10 +33,10 @@ export default new vuex.Store({
         // }
     },
     actions: {
-        getSongs({ dispatch, commit }) {
-            api.get('songs').then(res => {
-                console.log(res)
-                commit('setSongs', res.data)
+        getSongs({ dispatch, commit }, artist) {
+            api.get(""+artist).then(res => {
+                console.log(res.data.results)
+                commit('setSongs', res.data.results)
 
             })
         },
