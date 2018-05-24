@@ -5,7 +5,7 @@
     <button @click="getSongs">Search the Songs</button>
 
     <h4>Search Reasults</h4>
-    <div v-for="(song, index) in PlayList" :key="song.id">
+    <div v-for="(song, index) in playlist" :key="song.id">
       <router-link :to="{ name: 'PlayList', params: { id: index }}">{{song.title}} {{song.artist}}</router-link>    
       
     </div>
@@ -18,6 +18,16 @@ export default {
   data () {
     return {
       query: ''
+    }
+  },
+  computed: {
+    playList(){
+      return this.$store.state.playlist
+    }
+  },
+  methods: {
+    getSongs(){
+      this.$store.dispatch("getSongs", this.query)
     }
   }
 }
