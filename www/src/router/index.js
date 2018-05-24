@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import NutritionDetails from '@/components/NutritionDetails'
-import EatDetails from '@/components/EatDetails'
+import MusicSearch from '@/components/MusicSearch'
+import PlayList from '@/components/PlayList'
 
 Vue.use(Router)
 
@@ -14,14 +14,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/NutritionDetails/:id',
-      name: 'NutritionDetails',
-      component: NutritionDetails
+      path: '/MusicSearch/:id',
+      name: 'MusicSearch',
+      component: MusicSearch
     },
     {
-      path: '/EatDetails/:id',
-      name: 'EatDetails',
-      component: EatDetails
+      path: '/PlayList/:id',
+      name: 'PlayList',
+      component: PlayList
     }
   ]
 })
