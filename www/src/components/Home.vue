@@ -8,9 +8,6 @@
     <div v-for="(song, index) in PlayList" :key="song.id">
       <router-link :to="{ name: 'PlayList', params: { id: index }}">{{song.title}} {{song.artist}}</router-link>    
       
-      
-
-
     </div>
   </div>
 </template>
