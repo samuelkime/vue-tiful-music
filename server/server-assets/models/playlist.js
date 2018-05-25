@@ -14,6 +14,7 @@ let songSchema = new Schema({
 
 
 var schema = new Schema({
+   title: {type: String, required: true},
    songs: [songSchema],
    userId: {
     type: ObjectId,
