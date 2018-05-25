@@ -5,8 +5,14 @@ import axios from 'axios'
 
 let api = axios.create({
     baseURL: 'https://itunes.apple.com/search?term=', //here is the retrieval point
-    timeout: 3000,
+    timeout: 3000
     // withCredentials: true
+})
+
+let srvr = axios.create({
+    //baseURL: "mongodb://Samuel:test123@ds045785.mlab.com:45785/fullstack-music",
+    baseURL: '//localhost:3000',
+    timeout: 3000
 })
 
 vue.use(vuex)
@@ -15,6 +21,7 @@ vue.use(vuex)
 //above is standard
 export default new vuex.Store({
     state: {
+        user:{},
         songs: [],
 //      user: {},
         playlist: [],
@@ -24,9 +31,15 @@ export default new vuex.Store({
         setSongs(state, songs) {
             state.songs = songs
         },
-        setPlayList(state, data) {
-            state.playlist[data.postId] = data.comments
+        // setPlayList(state, data) {
+        //     state.playlist[data.postId] = data.comments
+        // },
+        addToPlayList(state, song){
+            state.playlist.push(song) 
         },
+        setPlayList(state, playlist){
+            state.playlist = playlist
+        }
 
         // setUser(state, user) {
         //     state.user = user
@@ -40,6 +53,20 @@ export default new vuex.Store({
 
             })
         },
+        addToPlayList({dispatch, commit}, song){
+            console.log(song)
+            commit('addToPlayList', song)
+        },
+        getPlayList({dispatch, commit}, user){//NOT COMPELTE KEEP MESSING WITH THIS
+            srvr.get("/api/playlists/"+ user)
+            .then(res=>{
+                console.log(res)
+                
+             })
+
+            
+        }
+        
         // getComments({ dispatch, commit},postId){
         //     api.get('comments/'+postId).then(res =>{
         //         commit('setComments', {comments:res.data, postId: postId })

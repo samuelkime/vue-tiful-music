@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <h1>Welcome to the Festi<img src="./assets/logo.png" style="width:20px">al of music</h1>
     <router-view/>
   </div>
 </template>
