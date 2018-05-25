@@ -50,7 +50,6 @@ export default new vuex.Store({
             api.get(""+artist).then(res => {
                 console.log(res.data.results)
                 commit('setSongs', res.data.results)
-
             })
         },
         addToPlayList({dispatch, commit}, song){
@@ -58,14 +57,11 @@ export default new vuex.Store({
             commit('addToPlayList', song)
         },
         getPlayList({dispatch, commit}, user){//NOT COMPELTE KEEP MESSING WITH THIS
-            srvr.get("/api/playlists/"+ user)
+            srvr.get("/api/playlists/" + user)
             .then(res=>{
                 console.log(res)
-                
              })
-
-            
-        }
+       }
         
         // getComments({ dispatch, commit},postId){
         //     api.get('comments/'+postId).then(res =>{
