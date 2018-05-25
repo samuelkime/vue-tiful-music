@@ -1,14 +1,24 @@
 var router = require('express').Router()
 var Playlists = require('../models/playlist')
 
-router.get('/api/playlists', (req, res, next) => {
-  Playlists.find(req.query)
-    .then(playlists => {
-      res.status(200).send(playlists)
-    })
-    .catch(err => {
-      res.status(400).send(err)
-    })
+router.get('/api/playlists/:id?', (req, res, next) => {
+  if(!req.params.id){
+    Playlists.find({})
+      .then(playlists => {
+        res.status(200).send(playlists)
+      })
+      .catch(err => {
+        res.status(400).send(err)
+      })
+  }else{
+    Playlists.findById(req.params.id)
+      .then(playlist=>{
+       res.status(200).send(playlist)
+      })
+      .catch(err =>{
+        res.status(400).send(err)
+      })
+  }
 })
 
 router.put('/api/playlists/:id', (req, res, next) => {

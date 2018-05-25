@@ -1,16 +1,6 @@
 var router = require('express').Router()
 var Users = require('../models/user')
 
-router.get('/api/users', (req, res, next) => {
-  Users.find(req.query)
-    .then(user => {
-      res.status(200).send(user)
-    })
-    .catch(err => {
-      res.status(400).send(err)
-    })
-})
-
 router.put('/api/users/:id', (req, res, next) => {
   Users.findByIdAndUpdate(req.params.id, req.body, {
       new: true
