@@ -6,13 +6,29 @@ var port = 3000
 
 app.use(cors())
 
-require('./db/mlab-config')
+require('./server-assets/db/mlab-config')
 
 app.use(bp.json())
-app.use(bp.urlencoded({
-    extended:true
-}))
+app.use(bp.urlencoded({extended:true}))
 
-let auth = require('./auth/routes')
-app.use(auth.session)
-app.use(auth.router)
+var users = require('./server-assets/routes/users')
+var songs = require('./server-assets/routes/songs')
+var playlists = require('./server-assets/routes/playlists')
+
+app.use(bp.json())
+app.use(bp.urlencoded({extended: true}))
+
+app.use(users.router)
+app.use(songs.router)
+app.use(playlists.router)
+
+
+//catch all
+app.get('*', (req, res, next)=>{
+    res.status(404).send({error: 'No matching routes'})
+  })
+  
+  //port listener
+  app.listen(port, ()=>{
+    console.log('server running on port', port)
+  })
