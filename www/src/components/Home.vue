@@ -1,13 +1,14 @@
 <template>
   <div class="home">
-     <h1>Welcome to the Festival of Music</h1>
+     
     <input type="text" v-model="query">
     <button @click="getSongs">Search the Songs</button>
 
     <h4>Search Reasults</h4>
+    <button @click="getPlayList">Go to playlist</button>
     <div v-for="(song, index) in songs" :key="song._id">
       <router-link :to="{ name: 'Home', params: { id: index }}">{{song.artistName}}:{{song.trackName}} <img :src="song.artworkUrl100"></router-link>    
-      <button @click="addToPlayList(song)"></button>
+      <button @click="addToPlayList(song)">Add to playlist</button>
     </div>
   </div>
 </template>
@@ -33,7 +34,10 @@ export default {
       this.$store.dispatch("getSongs", this.query)
     },
     addToPlayList(song){
-
+      this.$store.dispatch("addToPlayList", song)
+   },
+   getPlayList(){
+     this.$store.dispatch("getPlayList", )
    }
   }
 

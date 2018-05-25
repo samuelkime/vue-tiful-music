@@ -15,6 +15,7 @@ vue.use(vuex)
 //above is standard
 export default new vuex.Store({
     state: {
+        user:{},
         songs: [],
 //      user: {},
         playlist: [],
@@ -24,9 +25,15 @@ export default new vuex.Store({
         setSongs(state, songs) {
             state.songs = songs
         },
-        setPlayList(state, data) {
-            state.playlist[data.postId] = data.comments
+        // setPlayList(state, data) {
+        //     state.playlist[data.postId] = data.comments
+        // },
+        addToPlayList(state, song){
+            state.playlist.push(song) 
         },
+        getPlayList(state, playlist){
+            state.playlist
+        }
 
         // setUser(state, user) {
         //     state.user = user
@@ -40,6 +47,11 @@ export default new vuex.Store({
 
             })
         },
+        addToPlayList({dispatch, commit}, song){
+            console.log(song)
+            commit('addToPlayList', song)
+        }
+        
         // getComments({ dispatch, commit},postId){
         //     api.get('comments/'+postId).then(res =>{
         //         commit('setComments', {comments:res.data, postId: postId })
