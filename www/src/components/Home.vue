@@ -37,7 +37,7 @@ export default {
       this.$store.dispatch("addToPlayList", song)
    },
    getPlayList(){
-     this.$store.dispatch("getPlayList", )
+     this.$store.dispatch("getPlayList")
    }
   }
 

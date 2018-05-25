@@ -5,8 +5,14 @@ import axios from 'axios'
 
 let api = axios.create({
     baseURL: 'https://itunes.apple.com/search?term=', //here is the retrieval point
-    timeout: 3000,
+    timeout: 3000
     // withCredentials: true
+})
+
+let srvr = axios.create({
+    //baseURL: "mongodb://Samuel:test123@ds045785.mlab.com:45785/fullstack-music",
+    baseURL: '//localhost:3000',
+    timeout: 3000
 })
 
 vue.use(vuex)
@@ -31,8 +37,8 @@ export default new vuex.Store({
         addToPlayList(state, song){
             state.playlist.push(song) 
         },
-        getPlayList(state, playlist){
-            state.playlist
+        setPlayList(state, playlist){
+            state.playlist = playlist
         }
 
         // setUser(state, user) {
@@ -50,6 +56,15 @@ export default new vuex.Store({
         addToPlayList({dispatch, commit}, song){
             console.log(song)
             commit('addToPlayList', song)
+        },
+        getPlayList({dispatch, commit}, user){//NOT COMPELTE KEEP MESSING WITH THIS
+            srvr.get("/api/playlists/"+ user)
+            .then(res=>{
+                console.log(res)
+                
+             })
+
+            
         }
         
         // getComments({ dispatch, commit},postId){
