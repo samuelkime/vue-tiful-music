@@ -9,7 +9,7 @@ let songSchema = new Schema({
   artist: {type: String, required: true},
   album: {type: String, required: true},
   price: {type: String, required: true},
-  preview: {type: String, required: true},
+  preview: {type: String, required: true}
 })
 
 
