@@ -12,14 +12,14 @@ app.use(bp.json())
 app.use(bp.urlencoded({extended:true}))
 
 var users = require('./server-assets/routes/users')
-var songs = require('./server-assets/routes/songs')
+//var songs = require('./server-assets/routes/songs')
 var playlists = require('./server-assets/routes/playlists')
 
 app.use(bp.json())
 app.use(bp.urlencoded({extended: true}))
 
 app.use(users.router)
-app.use(songs.router)
+//app.use(songs.router)
 app.use(playlists.router)
 
 

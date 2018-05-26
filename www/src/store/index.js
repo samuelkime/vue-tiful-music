@@ -39,6 +39,9 @@ export default new vuex.Store({
         },
         setPlayList(state, playlist){
             state.playlist = playlist
+        },
+        setUser(state, user) {
+            state.user = user
         }
 
         // setUser(state, user) {
@@ -61,7 +64,27 @@ export default new vuex.Store({
             .then(res=>{
                 console.log(res)
              })
-       }
+       },
+       addUser({ dispatch, commit }, user) {
+        console.log(user)
+        api.post('users', user)
+            .then(res => {
+                // console.log(res.data)
+                console.log(res)
+                commit('setUser', res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        },
+        getUser({ dispatch, commit }, user) {
+            console.log(user)
+            api.post('login/', user).then(res => {
+                console.log(res.data)
+                commit('setUser', res.data)
+            })
+        }
         
         // getComments({ dispatch, commit},postId){
         //     api.get('comments/'+postId).then(res =>{
