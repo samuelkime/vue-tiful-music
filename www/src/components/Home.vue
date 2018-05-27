@@ -1,15 +1,29 @@
 <template>
   <div class="home">
-     
-    <input type="text" v-model="query">
+      <div v-if="!user._id">
+        <form v-on:submit.prevent="getUser">
+          <input type="text" name="name" placeholder="Enter name" v-model="checkUser.username">
+          <button class="btn btn-light" type="submit">Login</button>
+        </form>
+        <form v-on:submit.prevent="addUser">
+          <input type="text" name="name" placeholder="Enter name" v-model="newUser.username">
+          <button class="btn btn-light" type="submit">Register</button>
+        </form>
+      </div>
+      <div v-else>
+         <router-link :to="{ name: 'MusicSearch', params: { id: index }}">{{user}}</router-link>
+
+      </div>
+
+    <!-- <input type="text" v-model="query">
     <button @click="getSongs">Search the Songs</button>
 
     <h4>Search Reasults</h4>
-    <button @click="getPlayList">Go to playlist</button>
+    <button @click="getPlayList()">Go to playlist</button>
     <div v-for="(song, index) in songs" :key="song._id">
       <router-link :to="{ name: 'Home', params: { id: index }}">{{song.artistName}}:{{song.trackName}} <img :src="song.artworkUrl100"></router-link>    
       <button @click="addToPlayList(song)">Add to playlist</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -18,27 +32,40 @@ export default {
   name: 'Home',
   data () {
     return {
-      query: ''
+      query: '',
+      newUser: {userName:''},
+      checkUser: {userName:''}
     }
+    
+    
   },
   computed: {
-    playList(){
-      return this.$store.state.playlist
+    user(){
+      return this.$store.state.user
     },
-    songs(){
-      return this.$store.state.songs
-    }
+    // playList(){
+    //   return this.$store.state.playlist
+    // },
+    // songs(){
+    //   return this.$store.state.songs
+    // }
   },
   methods: {
-    getSongs(){
-      this.$store.dispatch("getSongs", this.query)
+    // getSongs(){
+    //   this.$store.dispatch("getSongs", this.query)
+    // },
+    // addToPlayList(song){
+    //   this.$store.dispatch("addToPlayList", song)
+    // },
+    // getPlayList(user){
+    //   this.$store.dispatch("getPlayList", user)
+    // },
+    getUser(){
+      this.$store.dispatch("getUser", this.checkeUser);
     },
-    addToPlayList(song){
-      this.$store.dispatch("addToPlayList", song)
-   },
-   getPlayList(){
-     this.$store.dispatch("getPlayList")
-   }
+    addUser(){
+      this.$store.dispatch("addUser", this.newUser);
+    }
   }
 
 }
