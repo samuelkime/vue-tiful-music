@@ -6,7 +6,7 @@
     <h4>Search Reasults</h4>
     <button @click="getPlayList()">Go to playlist</button>
     <div v-for="song in playList" :key="song._id"> 
-      {{song.artistName}}
+      {{song.artistName}} <span @click="removeFromPlayList(song)">X</span>
       </div>
     <div v-for="(song, index) in songs" :key="song._id">
       <router-link :to="{ name: 'Home', params: { id: index }}">{{song.artistName}}:{{song.trackName}} <img :src="song.artworkUrl100"></router-link>    
@@ -32,7 +32,7 @@ export default {
       return this.$store.state.user
     },
     playList(){
-      console.log(this.$store.state.playlist)
+      //console.log(this.$store.state.playlist)
       return this.$store.state.playlist
     },
     songs(){
@@ -49,12 +49,19 @@ export default {
     getPlayList(user){
       this.$store.dispatch("getPlayList", user)
     },
-    getUser(){
-      this.$store.dispatch("getUser", this.checkeUser);
+    removeFromPlayList(song){
+      this.$store.dispatch("removeFromPlayList", song)
     },
-    addUser(){
-      this.$store.dispatch("addUser", this.newUser);
-    }
+    promoteSong(song){
+      this.$store.dispatch("promoteSong", song)
+    },
+    demoteSong(){}
+    // getUser(){
+    //   this.$store.dispatch("getUser", this.checkeUser);
+    // },
+    // addUser(){
+    //   this.$store.dispatch("addUser", this.newUser);
+    // }
   }
 
 }

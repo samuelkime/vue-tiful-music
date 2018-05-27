@@ -35,8 +35,11 @@ export default new vuex.Store({
         //     state.playlist[data.postId] = data.comments
         // },
         addToPlayList(state, song){
-            console.log(song)
+        //    console.log(song)
             state.playlist.push(song) 
+        },
+        removeFromPlayList(state, song){
+            state.playlist.splice(song, 1)
         },
         setPlayList(state, playlist){
             state.playlist = playlist
@@ -60,6 +63,9 @@ export default new vuex.Store({
            // console.log(song)
             commit('addToPlayList', song)
         },
+        removeFromPlayList({dispatch, commit}, song){
+            commit('removeFromPlayList', song)
+        },
         getPlayList({dispatch, commit}, user){//THIS WILL GET A USERS PLAYLIST BASED ON THEIR ID NEED TO FINISHED LOGIN SO THIS CAN BE DONE
             srvr.get("/api/playlists/" + user)
             .then(res=>{
@@ -77,8 +83,7 @@ export default new vuex.Store({
             .catch(err => {
                 console.log(err)
             })
-
-        },
+           },
         getUser({ dispatch, commit }, user) {
             console.log(user)
             srvr.post('/api/login', user).then(res => {
