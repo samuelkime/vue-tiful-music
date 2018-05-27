@@ -4,8 +4,8 @@ var schemaName = 'User'
 
 
 var schema = new Schema({
-    email: {type: String, required: true, unique: true},
-    displayName: {type: String, required: true},
+    //email: {type: String, required: true, unique: true},
+    userName: {type: String, required: true},
 })
 
 module.exports = mongoose.model(schemaName, schema)

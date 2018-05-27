@@ -2,11 +2,11 @@
   <div class="home">
       <div v-if="!user._id">
         <form v-on:submit.prevent="getUser">
-          <input type="text" name="name" placeholder="Enter name" v-model="checkUser.username">
+          <input type="text" name="name" placeholder="Enter name" v-model="checkUser.userName">
           <button class="btn btn-light" type="submit">Login</button>
         </form>
         <form v-on:submit.prevent="addUser">
-          <input type="text" name="name" placeholder="Enter name" v-model="newUser.username">
+          <input type="text" name="name" placeholder="Enter name" v-model="newUser.userName">
           <button class="btn btn-light" type="submit">Register</button>
         </form>
       </div>
@@ -41,6 +41,7 @@ export default {
   },
   computed: {
     user(){
+      console.log(this.$store.state.user)
       return this.$store.state.user
     },
     // playList(){
@@ -61,7 +62,7 @@ export default {
     //   this.$store.dispatch("getPlayList", user)
     // },
     getUser(){
-      this.$store.dispatch("getUser", this.checkeUser);
+      this.$store.dispatch("getUser", this.checkUser);
     },
     addUser(){
       this.$store.dispatch("addUser", this.newUser);

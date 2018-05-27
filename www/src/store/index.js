@@ -35,6 +35,7 @@ export default new vuex.Store({
         //     state.playlist[data.postId] = data.comments
         // },
         addToPlayList(state, song){
+            console.log(song)
             state.playlist.push(song) 
         },
         setPlayList(state, playlist){
@@ -51,15 +52,15 @@ export default new vuex.Store({
     actions: {
         getSongs({ dispatch, commit }, artist) {
             api.get(""+artist).then(res => {
-                console.log(res.data.results)
+              //  console.log(res.data.results)
                 commit('setSongs', res.data.results)
             })
         },
-        addToPlayList({dispatch, commit}, song){
-            console.log(song)
+        addToPlayList({dispatch, commit}, song){ //NOT COMPLETE NEEDS TO ADD THE PLAYLIST TO THE DATABASE
+           // console.log(song)
             commit('addToPlayList', song)
         },
-        getPlayList({dispatch, commit}, user){//NOT COMPELTE KEEP MESSING WITH THIS
+        getPlayList({dispatch, commit}, user){//THIS WILL GET A USERS PLAYLIST BASED ON THEIR ID NEED TO FINISHED LOGIN SO THIS CAN BE DONE
             srvr.get("/api/playlists/" + user)
             .then(res=>{
                 console.log(res)
@@ -67,11 +68,11 @@ export default new vuex.Store({
        },
        addUser({ dispatch, commit }, user) {
         console.log(user)
-        api.post('users', user)
+        srvr.post('/api/users', user)
             .then(res => {
                 // console.log(res.data)
                 console.log(res)
-                commit('setUser', res.data)
+                commit('setUser', res.config.data)
             })
             .catch(err => {
                 console.log(err)
@@ -80,9 +81,9 @@ export default new vuex.Store({
         },
         getUser({ dispatch, commit }, user) {
             console.log(user)
-            api.post('login/', user).then(res => {
-                console.log(res.data)
-                commit('setUser', res.data)
+            srvr.post('/api/login', user).then(res => {
+                console.log(res.config)
+                commit('setUser', res.config.data)
             })
         }
         
