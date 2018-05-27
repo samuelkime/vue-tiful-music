@@ -6,7 +6,7 @@
     <h4>Search Reasults</h4>
     <button @click="getPlayList()">Go to playlist</button>
     <div v-for="song in playList" :key="song._id"> 
-      {{song.artistName}} <span @click="removeFromPlayList(song)">X</span>
+      {{song.artist}} <span @click="removeFromPlayList(song)">X</span>
       </div>
     <div v-for="(song, index) in songs" :key="song._id">
       <router-link :to="{ name: 'Home', params: { id: index }}">{{song.artistName}}:{{song.trackName}} <img :src="song.artworkUrl100"></router-link>    

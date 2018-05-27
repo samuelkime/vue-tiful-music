@@ -35,8 +35,9 @@ export default new vuex.Store({
         //     state.playlist[data.postId] = data.comments
         // },
         addToPlayList(state, song){
-        //    console.log(song)
-            state.playlist.push(song) 
+         //   console.log(song)
+            state.playlist.push(song)
+            console.log(state.playlist) 
         },
         removeFromPlayList(state, song){
             state.playlist.splice(song, 1)
@@ -55,13 +56,22 @@ export default new vuex.Store({
     actions: {
         getSongs({ dispatch, commit }, artist) {
             api.get(""+artist).then(res => {
-              //  console.log(res.data.results)
+                console.log(res.data.results)
                 commit('setSongs', res.data.results)
             })
         },
         addToPlayList({dispatch, commit}, song){ //NOT COMPLETE NEEDS TO ADD THE PLAYLIST TO THE DATABASE
-           // console.log(song)
-            commit('addToPlayList', song)
+            var songToList = {
+                title: song.trackName,
+                albumArt: song.artworkUrl60,
+                artist: song.artistName,
+                album: song.collectionName,
+                price: song.collectionPrice,
+                preview: song.previewUrl,
+            
+            } 
+            console.log(songToList)
+            commit('addToPlayList', songToList)
         },
         removeFromPlayList({dispatch, commit}, song){
             commit('removeFromPlayList', song)
