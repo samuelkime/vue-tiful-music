@@ -2,8 +2,8 @@
   <div class="home">
     <div class="container">
       
-      <div class="row d-flex justify-content-center">
-        <h4>Favorites Playlist</h4>
+      <div class="row d-flex justify-content-center mb-3">
+        <router-link to="PlayList"><button>My Favorites List</button></router-link>
       </div>
       <div class="row d-flex justify-content-center">
         <div v-for="song in playList" :key="song._id">
@@ -13,14 +13,16 @@
             <h6 class="truncate">Album: {{song.album}}</h6>
             <h6>Price: ${{song.price}}</h6>
             <a @click="promoteSong(song)">
-              <p>upvotes: {{song.userUpVotes}}</p>
+              <p>Upvotes: {{song.userUpVotes}}</p>
             </a>
-            <p>downvotes: {{songs.userDownVotes}}</p>
+            <a @click="demoteSong(song)"> 
+              <p>Downvotes: {{song.userDownVotes}}</p>
+            </a>
             <span @click="removeFromPlayList(song)">X</span>
           </div>
         </div>
       </div>
-      <div class="row d-flex justify-content-center">
+      <div class="row d-flex justify-content-center mb-3">
           <input type="text" v-model="query">
           <button @click="getSongs">Find an Artist</button>
         </div>
@@ -88,6 +90,9 @@
       getSongs() {
         this.$store.dispatch("getSongs", this.query)
       },
+      createPlayList(user){
+        this.$store.dispatch("createPlayList", this.user)
+      },
       addToPlayList(song) {
         this.$store.dispatch("addToPlayList", song)
       },
@@ -100,7 +105,9 @@
       promoteSong(song) {
         this.$store.dispatch("upSong", song)
       },
-      demoteSong() { }
+      demoteSong(song) { 
+        this.$store.dispatch("downSong", song)
+      }
       // getUser(){
       //   this.$store.dispatch("getUser", this.checkeUser);
       // },

@@ -68,14 +68,20 @@ export default new vuex.Store({
                 album: song.collectionName,
                 price: song.collectionPrice,
                 preview: song.previewUrl,
-                userUpVotes:0,
-                userDownVotes:0,          
+                userUpVotes: 0,
+                userDownVotes: 0,          
             } 
             console.log(songToList)
             commit('addToPlayList', songToList)
         },
         removeFromPlayList({dispatch, commit}, song){
             commit('removeFromPlayList', song)
+        },
+        createPlayList({dispatch, commit}, user){
+            srvr.post("/playlists/", this.user)
+            .then(res=>{
+              console.log(res)
+            })
         },
         getPlayList({dispatch, commit}, user){//THIS WILL GET A USERS PLAYLIST BASED ON THEIR ID NEED TO FINISHED LOGIN SO THIS CAN BE DONE
             srvr.get("/playlists" + user)
@@ -86,7 +92,10 @@ export default new vuex.Store({
        upSong({ dispatch, commit }, song) {
         song.userUpVotes += 1
         },
-        
+        downSong({dispatch, commit}, song) {
+        song.userDownVotes -= 1
+        },
+
        addUser({ dispatch, commit }, user) {
         console.log(user)
         srvr.post('/api/users', user)
