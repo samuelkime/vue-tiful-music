@@ -35,7 +35,12 @@ export default new vuex.Store({
         //     state.playlist[data.postId] = data.comments
         // },
         addToPlayList(state, song){
-            state.playlist.push(song) 
+         //   console.log(song)
+            state.playlist.push(song)
+            console.log(state.playlist) 
+        },
+        removeFromPlayList(state, song){
+            state.playlist.splice(song, 1)
         },
         setPlayList(state, playlist){
             state.playlist = playlist
@@ -55,11 +60,23 @@ export default new vuex.Store({
                 commit('setSongs', res.data.results)
             })
         },
-        addToPlayList({dispatch, commit}, song){
-            console.log(song)
-            commit('addToPlayList', song)
+        addToPlayList({dispatch, commit}, song){ //NOT COMPLETE NEEDS TO ADD THE PLAYLIST TO THE DATABASE
+            var songToList = {
+                title: song.trackName,
+                albumArt: song.artworkUrl60,
+                artist: song.artistName,
+                album: song.collectionName,
+                price: song.collectionPrice,
+                preview: song.previewUrl,
+            
+            } 
+            console.log(songToList)
+            commit('addToPlayList', songToList)
         },
-        getPlayList({dispatch, commit}, user){//NOT COMPELTE KEEP MESSING WITH THIS
+        removeFromPlayList({dispatch, commit}, song){
+            commit('removeFromPlayList', song)
+        },
+        getPlayList({dispatch, commit}, user){//THIS WILL GET A USERS PLAYLIST BASED ON THEIR ID NEED TO FINISHED LOGIN SO THIS CAN BE DONE
             srvr.get("/api/playlists/" + user)
             .then(res=>{
                 console.log(res)
@@ -67,22 +84,21 @@ export default new vuex.Store({
        },
        addUser({ dispatch, commit }, user) {
         console.log(user)
-        api.post('users', user)
+        srvr.post('/api/users', user)
             .then(res => {
                 // console.log(res.data)
                 console.log(res)
-                commit('setUser', res.data)
+                commit('setUser', res.config.data)
             })
             .catch(err => {
                 console.log(err)
             })
-
-        },
+           },
         getUser({ dispatch, commit }, user) {
             console.log(user)
-            api.post('login/', user).then(res => {
-                console.log(res.data)
-                commit('setUser', res.data)
+            srvr.post('/api/login', user).then(res => {
+                console.log(res.config)
+                commit('setUser', res.config.data)
             })
         }
         
